@@ -1,4 +1,4 @@
-VPN_SERVER_IPV4='vpnserver.example.com'
+VPN_SERVER_IPV4='127.0.0.1'
 VPN_PSK='ipsec-pre-shared-key'
 VPN_USERNAME='username'
 VPN_PASSWORD='password'
