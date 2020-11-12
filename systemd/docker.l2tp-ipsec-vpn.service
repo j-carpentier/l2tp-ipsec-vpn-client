@@ -1,0 +1,23 @@
+[Unit]
+Description=L2TP/IPsec VPN client Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+EnvironmentFile=/etc/l2tp-ipsec-vpn/l2tp-ipsec-vpn.conf
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker exec %n stop
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull ubergarm/l2tp-ipsec-vpn-client:strongswan
+ExecStart=/usr/bin/docker run --rm --privileged --net=host --name %n \
+    -v /lib/modules:/lib/modules:ro \
+    -e VPN_SERVER_IPV4 \
+    -e VPN_PSK \
+    -e VPN_USERNAME \
+    -e VPN_PASSWORD \
+    ubergarm/l2tp-ipsec-vpn-client:strongswan
+ExecStop=/usr/bin/docker stop -t 10 %n
+
+[Install]
+WantedBy=default.target

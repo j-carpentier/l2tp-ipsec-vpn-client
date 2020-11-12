@@ -1,0 +1,13 @@
+1. Configure VPN client service
+cd l2tp-ipsec-vpn-client/
+sudo cp systemd/docker.l2tp-ipsec-vpn.service /etc/systemd/system/docker.l2tp-ipsec-vpn.service
+sudo mkdir /etc/l2tp-ipsec-vpn/
+sudo cp systemd/l2tp-ipsec-vpn.conf.example /etc/l2tp-ipsec-vpn/l2tp-ipsec-vpn.conf
+# edit /etc/l2tp-ipsec-vpn/l2tp-ipsec-vpn.conf with VPN connection infos
+
+2. Enable/start VPN client service
+sudo systemctl enable docker.l2tp-ipsec-vpn.service
+sudo systemctl start docker.l2tp-ipsec-vpn.service
+
+3. Ensure VPN Client service running fine
+sudo systemctl status docker.l2tp-ipsec-vpn.service
